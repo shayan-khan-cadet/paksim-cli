@@ -24,6 +24,20 @@ from typing import Optional, Dict, Any
 import random
 
 # ==================== LOCAL IMPORTS ====================
+import sys as _sys
+import os as _os
+
+# Try multiple locations for cnic_codes_data
+_cnic_paths = [
+    _os.path.join(_os.path.dirname(__file__), "..", "data"),
+    _os.path.join(_os.path.dirname(__file__), "data"),
+    _os.path.dirname(__file__),
+]
+for _p in _cnic_paths:
+    _p = _os.path.abspath(_p)
+    if _p not in _sys.path and _os.path.exists(_os.path.join(_p, "cnic_codes_data.py")):
+        _sys.path.insert(0, _p)
+
 try:
     from cnic_codes_data import CNIC_CODES
     CNIC_DB_AVAILABLE = True

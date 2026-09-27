@@ -224,7 +224,7 @@ def format_output(validation: Dict) -> str:
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: python3 phone_social_check.py <phone_number> [region]")
-        print("Example: python3 phone_social_check.py 03239815518 PK")
+        print("Example: python3 phone_social_check.py 03000000000 PK")
         sys.exit(1)
     
     number = sys.argv[1]

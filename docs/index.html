@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAKSIM-CLI — Smart OSINT Toolkit</title>
+<meta name="description" content="Smart OSINT toolkit for Pakistani SIM/CNIC/phone intelligence. Ghost Mode, SQLite history, HTML reports. MIT licensed.">
+<meta property="og:title" content="PAKSIM-CLI — Smart OSINT Toolkit">
+<meta property="og:description" content="Ghost Mode · SQLite history · HTML reports.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👻</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a href="#" class="logo">👻 PAKSIM-CLI</a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#install">Install</a>
+      <a href="#usage">Usage</a>
+      <a href="https://github.com/shayan-khan-cadet/paksim-cli" target="_blank" rel="noopener" class="btn-ghost">GitHub ↗</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="hero-badge">v8.0.0 · MIT License · Python 3.10+</div>
+    <h1><span class="gradient">PAKSIM-CLI</span></h1>
+    <p class="hero-sub">
+      Smart OSINT toolkit for Pakistani <strong>SIM · CNIC · Phone</strong> intelligence.<br>
+      Ghost Mode · SQLite history · HTML reports · Zero-config.
+    </p>
+    <div class="hero-cta">
+      <a href="#install" class="btn-primary">Get Started</a>
+      <a href="https://github.com/shayan-khan-cadet/paksim-cli" target="_blank" rel="noopener" class="btn-secondary">View on GitHub</a>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="terminal-title">track 0xDEADBEEF</span>
+      </div>
+      <pre class="terminal-body"><span class="t-green">   ██████╗  █████╗ ██╗  ██╗███████╗██╗███╗   ███╗</span>
+<span class="t-green">   ██╔══██╗██╔══██╗██║ ██╔╝██╔════╝██║████╗ ████║</span>
+<span class="t-green">   ██████╔╝███████║█████╔╝ ███████╗██║██╔████╔██║</span>
+<span class="t-green">   ██╔═══╝ ██╔══██║██╔═██╗ ╚════██║██║██║╚██╔╝██║</span>
+<span class="t-green">   ██║     ██║  ██║██║  ██╗███████║██║██║ ╚═╝ ██║</span>
+<span class="t-green">   ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝╚═╝     ╚═╝</span>
+
+<span class="t-dim">  v8.0.0 · Shayan Khan · OSINT Toolkit</span>
+
+<span class="t-gold">  ─────────────────── TARGET ────────────────────</span>
+  target      <span class="t-cyan">0xDEADBEEF</span>
+  source      <span class="t-green">paksims.info</span>
+<span class="t-purple">  ◉ GHOST active</span>
+
+<span class="t-green">  ╭─ SUMMARY ────────────────────────────────────╮</span>
+<span class="t-green">  │</span>  sims        <span class="t-gold">1</span>
+<span class="t-green">  │</span>  cnic        <span class="t-pink">0000-0000000-0</span>
+<span class="t-green">  │</span>  name        <span class="t-lime">TURING COMPLETE</span>
+<span class="t-green">  ╰──────────────────────────────────────────────╯</span>
+
+<span class="t-green">  ╭─ SIM 01 ─────────────────────────────────────╮</span>
+<span class="t-green">  │</span>  phone       <span class="t-yellow">+92 000 0000000</span>
+<span class="t-green">  │</span>  address     <span class="t-white">Sector 7G, Cyberspace</span>
+<span class="t-green">  ╰──────────────────────────────────────────────╯</span>
+
+<span class="t-dim">  # this is a demo. real tool = real data. we don't leak ours.</span>
+<span class="t-dim">  # in the shadows, we find truth. 👻</span></pre>
+    </div>
+  </div>
+</header>
+
+<section id="features" class="features">
+  <div class="container">
+    <h2 class="section-title">Features</h2>
+    <div class="grid">
+      <div class="card"><div class="card-icon">🧠</div><h3>Smart Mode</h3><p>Type a number → auto-detects SIM vs CNIC → runs all relevant checks.</p></div>
+      <div class="card"><div class="card-icon">📱</div><h3>SIM / CNIC Lookup</h3><p>Query all registered SIMs against any CNIC or phone number.</p></div>
+      <div class="card"><div class="card-icon">🧬</div><h3>CNIC Structural Decode</h3><p>Province → Division → District → Tehsil. 700+ entries.</p></div>
+      <div class="card"><div class="card-icon">📞</div><h3>Phone Intelligence</h3><p>Carrier, country, region, line type, timezone.</p></div>
+      <div class="card"><div class="card-icon">👻</div><h3>Ghost Mode</h3><p>Route requests through anonymous proxies. Stay invisible.</p></div>
+      <div class="card"><div class="card-icon">🗺️</div><h3>Address Tracing</h3><p>One-click Google Maps lookup for any address.</p></div>
+      <div class="card"><div class="card-icon">💾</div><h3>Query History</h3><p>SQLite database of every lookup. Search, filter, export.</p></div>
+      <div class="card"><div class="card-icon">📄</div><h3>HTML Reports</h3><p>Beautiful dark-themed shareable reports.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="install" class="install">
+  <div class="container">
+    <h2 class="section-title">Installation</h2>
+    <div class="code-block">
+      <div class="code-header">
+        <span>Terminal</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+      <pre><code>git clone https://github.com/shayan-khan-cadet/paksim-cli.git
+cd paksim-cli
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python3 cli/paksim.py --help-commands</code></pre>
+    </div>
+  </div>
+</section>
+
+<section id="usage" class="usage">
+  <div class="container">
+    <h2 class="section-title">Usage</h2>
+    <div class="usage-grid">
+      <div class="usage-item"><span class="cmd">track 03000000000</span><span class="desc">Smart SIM lookup + phone intel</span></div>
+      <div class="usage-item"><span class="cmd">track 0000000000000</span><span class="desc">Smart CNIC decode + SIM lookup</span></div>
+      <div class="usage-item"><span class="cmd">track -g -s 03000000000</span><span class="desc">Ghost Mode (anonymous)</span></div>
+      <div class="usage-item"><span class="cmd">track --decode 00000-0000000-0</span><span class="desc">Structural CNIC decode</span></div>
+      <div class="usage-item"><span class="cmd">track --phone 03000000000</span><span class="desc">Phone intelligence</span></div>
+      <div class="usage-item"><span class="cmd">track -i</span><span class="desc">Interactive mode</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="disclaimer">
+  <div class="container">
+    <div class="warn-box">
+      <strong>⚠️ Legal Disclaimer</strong>
+      <p>This tool is for educational and authorized security research purposes only. You must obtain proper authorization before querying any information. The author assumes NO responsibility for misuse. Do not use for stalking, harassment, unauthorized surveillance, or any illegal activity.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>Made with 💚 by <a href="https://github.com/shayan-khan-cadet" target="_blank" rel="noopener">Shayan Khan</a> · <a href="https://github.com/shayan-khan-cadet/paksim-cli" target="_blank" rel="noopener">GitHub</a> · MIT License</p>
+    <p class="footer-dim">👻 in the shadows, we find truth.</p>
+  </div>
+</footer>
+
+<script>
+function copyCode(btn) {
+  const code = btn.closest('.code-block').querySelector('code').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = '✓ Copied';
+    setTimeout(() => btn.textContent = 'Copy', 2000);
+  });
+}
+</script>
+
+</body>
+</html>

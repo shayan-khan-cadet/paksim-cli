@@ -725,12 +725,12 @@ def show_commands():
   {Colors.CYAN}--help-commands{Colors.END}          Show this menu
 
 {Colors.GREEN}💀 EXAMPLES:{Colors.END}
-  {Colors.YELLOW}track 03239815518{Colors.END}                → SIM + phone intel
-  {Colors.YELLOW}track 1610219061595{Colors.END}             → CNIC decode + SIM lookup
-  {Colors.YELLOW}track -s 03239815518{Colors.END}
-  {Colors.YELLOW}track -g 03239815518{Colors.END}            → Ghost mode
-  {Colors.YELLOW}track --decode 16102-1906159-5{Colors.END}
-  {Colors.YELLOW}track --phone 03239815518{Colors.END}
+  {Colors.YELLOW}track 03000000000{Colors.END}                → SIM + phone intel
+  {Colors.YELLOW}track 0000000000000{Colors.END}             → CNIC decode + SIM lookup
+  {Colors.YELLOW}track -s 03000000000{Colors.END}
+  {Colors.YELLOW}track -g 03000000000{Colors.END}            → Ghost mode
+  {Colors.YELLOW}track --decode 00000-0000000-0{Colors.END}
+  {Colors.YELLOW}track --phone 03000000000{Colors.END}
 """)
 
 

@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# User data / results (never commit)
+.paksim/
+results/
+*.log
+*.db
+*.sqlite
+reports/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Personal
+queries.txt
+proxies.txt

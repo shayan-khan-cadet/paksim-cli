@@ -287,28 +287,28 @@ if __name__ == "__main__":
     # Test with sample data
     sample = {
         "data": [{
-            "nbr": "03239815518",
-            "nam": "SALMA BIBI",
-            "cni": "1610245554644",
-            "adr": "chragh din kallai Pakistan"
+            "nbr": "03000000000",
+            "nam": "TURING COMPLETE",
+            "cni": "0000000000000",
+            "adr": "Sector 7G, Cyberspace"
         }]
     }
     
-    sections = sections_from_sim_result(sample, "03239815518")
-    path = generate_report("sim", "03239815518", sections, ghost_mode=True, raw_json=sample)
+    sections = sections_from_sim_result(sample, "03000000000")
+    path = generate_report("sim", "03000000000", sections, ghost_mode=True, raw_json=sample)
     print(f"✅ Report generated: {path}")
     
     # Test CNIC decode report
     decoded_sample = {
-        "formatted": "16102-1906159-5",
+        "formatted": "00000-0000000-0",
         "gender": "Male",
-        "province": "KHYBER PAKHTUNKHWA",
-        "division": "MARDAN",
-        "district": "MARDAN",
+        "province": "CYBERSPACE",
+        "division": "THE MATRIX",
+        "district": "THE MATRIX",
         "tehsil": "TAKHT BHAI",
         "union_council": "N/A",
         "full_path": "KHYBER PAKHTUNKHWA > MARDAN > MARDAN > TAKHT BHAI",
     }
     sections2 = sections_from_cnic_decode(decoded_sample)
-    path2 = generate_report("cnic", "16102-1906159-5", sections2, raw_json=decoded_sample)
+    path2 = generate_report("cnic", "00000-0000000-0", sections2, raw_json=decoded_sample)
     print(f"✅ CNIC report generated: {path2}")

@@ -11,18 +11,22 @@ const PROVINCE_NAMES = {
   "8": "Azad Kashmir",
 };
 
-/* Pakistani carrier prefixes */
+/* Pakistani carrier prefixes (without leading 0) */
 const PK_CARRIERS = {
-  "300":"Jazz","301":"Jazz","302":"Jazz","303":"Jazz","305":"Jazz","306":"Jazz",
-  "307":"Jazz","308":"Jazz","309":"Jazz","320":"Jazz","321":"Jazz","322":"Jazz",
-  "323":"Jazz","324":"Jazz",
-  "310":"Zong","311":"Zong","312":"Zong","313":"Zong","314":"Zong","315":"Zong",
-  "316":"Zong","317":"Zong","318":"Zong","319":"Zong",
-  "340":"Telenor","341":"Telenor","342":"Telenor","343":"Telenor","344":"Telenor",
-  "345":"Telenor","346":"Telenor","347":"Telenor","348":"Telenor",
-  "330":"Ufone","331":"Ufone","332":"Ufone","333":"Ufone","334":"Ufone","335":"Ufone",
-  "355":"SCOM",
-  "325":"Warid (Jazz)","326":"Warid (Jazz)","327":"Warid (Jazz)",
+  "300": "Jazz", "301": "Jazz", "302": "Jazz", "303": "Jazz",
+  "305": "Jazz", "306": "Jazz", "307": "Jazz", "308": "Jazz",
+  "309": "Jazz", "320": "Jazz", "321": "Jazz", "322": "Jazz",
+  "323": "Jazz", "324": "Jazz",
+  "310": "Zong", "311": "Zong", "312": "Zong", "313": "Zong",
+  "314": "Zong", "315": "Zong", "316": "Zong", "317": "Zong",
+  "318": "Zong", "319": "Zong",
+  "340": "Telenor", "341": "Telenor", "342": "Telenor",
+  "343": "Telenor", "344": "Telenor", "345": "Telenor",
+  "346": "Telenor", "347": "Telenor", "348": "Telenor",
+  "330": "Ufone", "331": "Ufone", "332": "Ufone",
+  "333": "Ufone", "334": "Ufone", "335": "Ufone",
+  "355": "SCOM",
+  "325": "Warid (Jazz)", "326": "Warid (Jazz)", "327": "Warid (Jazz)",
 };
 
 /* ==================== INPUT DETECTION ==================== */
@@ -71,15 +75,15 @@ function decodeCNIC(clean) {
 
   const names = (matched.full_path || "").split(" > ");
   const codes = matched.codes || [];
-  const clean_pairs = names
+  const cleanPairs = names
     .map((n, i) => [codes[i], n])
     .filter(([c, n]) => n && n.toLowerCase() !== "empty");
 
-  const filtered = clean_pairs.map(([c, n]) => n);
+  const filtered = cleanPairs.map(([c, n]) => n);
 
   return {
     cnic: clean,
-    formatted: `${clean.slice(0,5)}-${clean.slice(5,12)}-${clean[12]}`,
+    formatted: `${clean.slice(0, 5)}-${clean.slice(5, 12)}-${clean[12]}`,
     gender,
     genderCode,
     province: filtered[0] || PROVINCE_NAMES[clean[0]] || "N/A",
@@ -94,20 +98,47 @@ function decodeCNIC(clean) {
 
 /* ==================== PHONE INTEL ==================== */
 function detectCarrier(clean) {
-  let c = clean;
+  let c = clean.replace(/[^0-9]/g, "");
   if (c.startsWith("92")) c = "0" + c.slice(2);
+  if (c.startsWith("0")) c = c.slice(1);        // strip leading 0 → "344"
   const prefix = c.slice(0, 3);
   return PK_CARRIERS[prefix] || null;
 }
 
-function formatPhone(clean) {
-  let c = clean;
+function formatPhoneLocal(clean) {
+  let c = clean.replace(/[^0-9]/g, "");
   if (c.startsWith("92")) c = "0" + c.slice(2);
-  // Format as 0300-0000000
   if (c.length === 11) {
-    return `${c.slice(0,4)}-${c.slice(4)}`;
+    return `${c.slice(0, 4)}-${c.slice(4)}`;
   }
   return c;
+}
+
+function formatPhoneNational(clean) {
+  let c = clean.replace(/[^0-9]/g, "");
+  if (c.startsWith("92")) c = "0" + c.slice(2);
+  if (c.length === 11) {
+    return `${c.slice(0, 4)} ${c.slice(4)}`;
+  }
+  return c;
+}
+
+function formatPhoneInternational(clean) {
+  let c = clean.replace(/[^0-9]/g, "");
+  if (c.startsWith("0")) c = "92" + c.slice(1);
+  if (c.startsWith("92")) {
+    const rest = c.slice(2);
+    if (rest.length === 10) {
+      return `+92 ${rest.slice(0, 3)} ${rest.slice(3)}`;
+    }
+  }
+  return "+" + c;
+}
+
+function formatPhoneE164(clean) {
+  let c = clean.replace(/[^0-9]/g, "");
+  if (c.startsWith("0")) c = "92" + c.slice(1);
+  return "+" + c;
 }
 
 /* ==================== RENDERING ==================== */
@@ -152,20 +183,28 @@ function renderCNIC(d) {
 
 function renderPhone(d, clean) {
   const carrier = detectCarrier(clean);
-  const formatted = formatPhone(clean);
+  const national = formatPhoneNational(clean);
+  const local = formatPhoneLocal(clean);
+  const international = formatPhoneInternational(clean);
+  const e164 = formatPhoneE164(clean);
+
   return `
     <div class="result-inner">
       <div class="result-title">📞 PHONE INTELLIGENCE</div>
       <div class="result-grid">
-        <div class="result-row"><span class="rk">Number</span><span class="rv hl">${formatted}</span></div>
-        <div class="result-row"><span class="rk">Carrier</span><span class="rv hl">${carrier || "Unknown"}</span></div>
+        <div class="result-row"><span class="rk">National</span><span class="rv hl">${national}</span></div>
+        <div class="result-row"><span class="rk">Local</span><span class="rv">${local}</span></div>
+        <div class="result-row"><span class="rk">International</span><span class="rv hl">${international}</span></div>
+        <div class="result-row"><span class="rk">E164</span><span class="rv">${e164}</span></div>
+        <div class="result-row"><span class="rk">Country Code</span><span class="rv">+92 (PK)</span></div>
         <div class="result-row"><span class="rk">Country</span><span class="rv">Pakistan</span></div>
-        <div class="result-row"><span class="rk">Region</span><span class="rv">PK</span></div>
+        <div class="result-row"><span class="rk">Carrier</span><span class="rv hl">${carrier || "Unknown"}</span></div>
         <div class="result-row"><span class="rk">Line Type</span><span class="rv">Mobile</span></div>
-        <div class="result-row"><span class="rk">Timezone</span><span class="rv">Asia/Karachi</span></div>
+        <div class="result-row"><span class="rk">Timezone</span><span class="rv">Asia/Karachi (UTC+5)</span></div>
+        <div class="result-row"><span class="rk">Region</span><span class="rv">PK</span></div>
       </div>
       <div class="result-note">
-        ℹ️ Decoded from the number prefix — no database lookup.
+        ℹ️ Decoded from the number prefix using ITU-T E.164 formatting — no database lookup.
       </div>
       <div class="result-gate">
         🔒 <strong>Want to see all SIMs registered against this number?</strong>
@@ -175,15 +214,24 @@ function renderPhone(d, clean) {
 }
 
 function renderSIMAttempt(clean) {
-  const formatted = formatPhone(clean);
   const carrier = detectCarrier(clean);
+  const local = formatPhoneLocal(clean);
+  const national = formatPhoneNational(clean);
+  const international = formatPhoneInternational(clean);
+  const e164 = formatPhoneE164(clean);
+
   return `
     <div class="result-inner">
       <div class="result-title">📱 SIM LOOKUP</div>
       <div class="result-grid">
-        <div class="result-row"><span class="rk">Number</span><span class="rv hl">${formatted}</span></div>
+        <div class="result-row"><span class="rk">Local</span><span class="rv hl">${local}</span></div>
+        <div class="result-row"><span class="rk">National</span><span class="rv">${national}</span></div>
+        <div class="result-row"><span class="rk">International</span><span class="rv hl">${international}</span></div>
+        <div class="result-row"><span class="rk">E164</span><span class="rv">${e164}</span></div>
+        <div class="result-row"><span class="rk">Country Code</span><span class="rv">+92 (PK)</span></div>
         <div class="result-row"><span class="rk">Carrier</span><span class="rv hl">${carrier || "Unknown"}</span></div>
         <div class="result-row"><span class="rk">Type</span><span class="rv">Mobile (SIM)</span></div>
+        <div class="result-row"><span class="rk">Timezone</span><span class="rv">Asia/Karachi (UTC+5)</span></div>
       </div>
       <div class="result-note warn">
         ⚠️ Full SIM ownership lookup (CNIC, name, address) requires the CLI tool.
@@ -254,7 +302,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === "Enter") handleAnalyze();
   });
 
-  // Escape closes modal
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeModal();
   });
